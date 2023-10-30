@@ -1,4 +1,3 @@
-import { Linter } from 'eslint';
 import React from 'react';
 
 const GameBoard = () => {
