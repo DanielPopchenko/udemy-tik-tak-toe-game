@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
-const PlayerInfo = ({ name, symbol }) => {
+const PlayerInfo = ({ name, symbol, isActive }) => {
   const [editing, setEditing] = useState(false);
   const [playerName, setPlayerName] = useState(name);
 
   return (
-    <li>
+    <li className={isActive ? 'active' : ''}>
       <span className="player">
         {editing ? (
           <input required type="text" value={playerName} onChange={(e) => setPlayerName(e.target.value)} />
