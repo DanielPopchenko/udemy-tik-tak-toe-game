@@ -1,33 +1,18 @@
-import { useState } from 'react';
-
-const GameBoard = ({ onSelectSquare, activePlayerSymbol }) => {
-  const initialGameBoard = [
-    [null, null, null],
-    [null, null, null],
-    [null, null, null],
-  ];
-
-  const [gameBoard, setGameBoard] = useState(initialGameBoard);
-
-  const handleSelectSquare = (rowIndex, colIndex, symbol) => {
-    setGameBoard((prev) => {
-      // ! To not to update array directly, we create a copy of it
-      const updatedBoard = [...prev.map((innerArray) => [...innerArray])];
-      updatedBoard[rowIndex][colIndex] = 'X';
-      return updatedBoard;
-    });
-
-    onSelectSquare();
-  };
-
+const GameBoard = ({ onSelectSquare, board }) => {
+  // ! Идея этого в том, чтобы менеджить как можно меньше стейта, а манипулировать други
   return (
     <ol id="game-board">
-      {gameBoard.map((row, rowIdx) => (
+      {board.map((row, rowIdx) => (
         <li key={rowIdx}>
           <ol>
             {row.map((playerSymbol, colIdx) => (
               <li key={colIdx}>
-                <button onClick={() => handleSelectSquare(rowIdx, colIdx)}>{playerSymbol}</button>
+                <button
+                  onClick={() => onSelectSquare(rowIdx, colIdx)}
+                  disabled={playerSymbol !== null}
+                >
+                  {playerSymbol}
+                </button>
               </li>
             ))}
           </ol>
@@ -38,3 +23,18 @@ const GameBoard = ({ onSelectSquare, activePlayerSymbol }) => {
 };
 
 export default GameBoard;
+
+// const [gameBoard, setGameBoard] = useState(initialGameBoard);
+
+// console.log(gameBoard);
+
+// const handleSelectSquare = (rowIndex, colIndex, symbol) => {
+//   setGameBoard((prev) => {
+//     // ! To not to update array directly, we create a copy of it
+//     const updatedBoard = [...prev.map((innerArray) => [...innerArray])];
+//     updatedBoard[rowIndex][colIndex] = activePlayerSymbol;
+//     return updatedBoard;
+//   });
+
+//   onSelectSquare();
+// };
